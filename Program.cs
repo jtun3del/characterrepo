@@ -57,7 +57,9 @@ do
             list.Add(response);
         } while (true);
         mario.Alias = list;
-        
+        //add the char
+        marios.Add(mario);
+        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
         
     }
     else if (choice == "3")

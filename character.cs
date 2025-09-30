@@ -1,4 +1,4 @@
-public class Character
+public abstract class Character
 {
     public UInt64 Id { get; set; }
     public string? Name { get; set; }
