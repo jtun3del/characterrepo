@@ -12,18 +12,26 @@ logger.Info("program started");
 
 //mario deserialization
 string marioFileName = "mario.json";
-List<Mario> marios = JsonSerializer.Deserialize<List<Mario>>(File.ReadAllText(marioFileName));
+List<Mario> marios = [];
+
+// check if file exists
+if (File.Exists(marioFileName))
+{
+    marios = JsonSerializer.Deserialize<List<Mario>>(File.ReadAllText(marioFileName))!;
+    logger.Info($"File deserialized {marioFileName}");
+}
+
 
 do
 {
-  // display choices to user
-  Console.WriteLine("1) Display Mario Characters");
-  Console.WriteLine("2) Add Mario Character");
-  Console.WriteLine("3) Remove Mario Character");
-  Console.WriteLine("Enter to quit");
-  // input selection
-  string? choice = Console.ReadLine();
-  logger.Info("User choice: {Choice}", choice);
+    // display choices to user
+    Console.WriteLine("1) Display Mario Characters");
+    Console.WriteLine("2) Add Mario Character");
+    Console.WriteLine("3) Remove Mario Character");
+    Console.WriteLine("Enter to quit");
+    // input selection
+    string? choice = Console.ReadLine();
+    logger.Info("User choice: {Choice}", choice);
     if (choice == "1")
     {
         // Display Mario Characters
@@ -55,16 +63,18 @@ do
         if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
         {
             Mario? character = marios.FirstOrDefault(c => c.Id == Id);
-      if (character == null)
-      {
-        logger.Error($"Character Id {Id} not found");
-      } else {
-         marios.Remove(character);
-        // serialize list<marioCharacter> into json file
-        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
-        logger.Info($"Character Id {Id} removed");
-      }
-          }
+            if (character == null)
+            {
+                logger.Error($"Character Id {Id} not found");
+            }
+            else
+            {
+                marios.Remove(character);
+                // serialize list<marioCharacter> into json file
+                File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+                logger.Info($"Character Id {Id} removed");
+            }
+        }
         else
         {
             logger.Error("Invalid Id");
