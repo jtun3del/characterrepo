@@ -15,7 +15,10 @@ string marioFileName = "mario.json";
 List<Mario> marios = [];
 
 // check if file exists
-if (File.Exists(marioFileName))
+Console.WriteLine("pick json file to write to");
+string filename = Console.ReadLine();
+
+if (File.Exists(filename))
 {
     marios = JsonSerializer.Deserialize<List<Mario>>(File.ReadAllText(marioFileName))!;
     logger.Info($"File deserialized {marioFileName}");
