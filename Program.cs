@@ -10,11 +10,42 @@ var logger = LogManager.Setup().LoadConfigurationFromFile(path).GetCurrentClassL
 
 logger.Info("program started");
 //grab user file name
-Console.WriteLine("pick json file to write to");
-string filename = Console.ReadLine();
+Console.WriteLine("1: mario \n 2: sf2 \n dk");
+string filename = "";
+string num = Console.ReadLine();
+Character placeholder = new Character();
+switch (num)
+{
+    case "1":
+        filename = "mario.json";
+        Character tsar = new Mario();
+        placeholder = tsar;
+        break;
+    case "2":
+        filename = "sf2.json";
+        Character tsad = new sf2();
+        placeholder = tsad;
+        break;
+    case "3":
+        filename = "dk.json";
+        Character tmad = new dk();
+        placeholder = tmad;
+        break;
+    default:
+        logger.Error("unknown number");
+        break;
+}
+
+{
+    
+}
 List<Character> chars = [];
 
-
+// for the character add thing later
+if (true)
+{
+    Character tsar = new Mario();
+}
 
 // check if file exists
 if (File.Exists(filename))
@@ -45,18 +76,17 @@ do
     }
     else if (choice == "2")
     {
-        // Add Character Character
+        // Add Character 
         //id making
-        Character Character = new()
-        {
-            Id = chars.Count == 0 ? 1 : chars.Max(c => c.Id) + 1
-        };
+       
+        placeholder.Id = chars.Count == 0 ? 1 : chars.Max(c => c.Id) + 1;
+        
 
-        InputCharacter(Character);
+        InputCharacter(placeholder);
         //add the char
-        chars.Add(Character);
+        chars.Add(placeholder);
         File.WriteAllText(filename, JsonSerializer.Serialize(chars));
-        logger.Info($"character created: {Character.Name}");
+        logger.Info($"character created: {placeholder.Name}");
 
     }
     else if (choice == "3")
