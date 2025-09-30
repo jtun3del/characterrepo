@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System.Data.Common;
 using System.Text.Json;
 String path = Directory.GetCurrentDirectory() + "//nlog.config";
 
@@ -29,10 +30,35 @@ do
         {
             Console.WriteLine(i.Display());
         }
-  }
+    }
     else if (choice == "2")
     {
         // Add Mario Character
+        //id making
+        Mario mario = new()
+        {
+            Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
+        };
+
+        Console.WriteLine("enter Name:");
+        mario.Name = Console.ReadLine();
+        Console.WriteLine("enter description");
+        mario.Description = Console.ReadLine();
+
+        List<string> list = [];
+        do
+        {
+            Console.WriteLine($"enter alias or (enter) to quit");
+            string response = Console.ReadLine()!;
+            if (string.IsNullOrEmpty(response))
+            {
+                break;
+            }
+            list.Add(response);
+        } while (true);
+        mario.Alias = list;
+        
+        
     }
     else if (choice == "3")
     {
