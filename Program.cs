@@ -9,72 +9,72 @@ String path = Directory.GetCurrentDirectory() + "//nlog.config";
 var logger = LogManager.Setup().LoadConfigurationFromFile(path).GetCurrentClassLogger();
 
 logger.Info("program started");
-
-//mario deserialization
-string marioFileName = "mario.json";
-List<Mario> marios = [];
-
-// check if file exists
+//grab user file name
 Console.WriteLine("pick json file to write to");
 string filename = Console.ReadLine();
+List<Character> chars = [];
 
+
+
+// check if file exists
 if (File.Exists(filename))
 {
-    marios = JsonSerializer.Deserialize<List<Mario>>(File.ReadAllText(marioFileName))!;
-    logger.Info($"File deserialized {marioFileName}");
+    //Character deserialization
+    chars = JsonSerializer.Deserialize<List<Character>>(File.ReadAllText(filename))!;
+    logger.Info($"File deserialized {filename}");
 }
 
 
 do
 {
     // display choices to user
-    Console.WriteLine("1) Display Mario Characters");
-    Console.WriteLine("2) Add Mario Character");
-    Console.WriteLine("3) Remove Mario Character");
+    Console.WriteLine("1) Display Character Characters");
+    Console.WriteLine("2) Add Character Character");
+    Console.WriteLine("3) Remove Character Character");
     Console.WriteLine("Enter to quit");
     // input selection
     string? choice = Console.ReadLine();
     logger.Info("User choice: {Choice}", choice);
     if (choice == "1")
     {
-        // Display Mario Characters
-        foreach (var i in marios)
+        // Display Character Characters
+        foreach (var i in chars)
         {
             Console.WriteLine(i.Display());
         }
     }
     else if (choice == "2")
     {
-        // Add Mario Character
+        // Add Character Character
         //id making
-        Mario mario = new()
+        Character Character = new()
         {
-            Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
+            Id = chars.Count == 0 ? 1 : chars.Max(c => c.Id) + 1
         };
 
-        InputCharacter(mario);
+        InputCharacter(Character);
         //add the char
-        marios.Add(mario);
-        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
-        logger.Info($"character created: {mario.Name}");
+        chars.Add(Character);
+        File.WriteAllText(filename, JsonSerializer.Serialize(chars));
+        logger.Info($"character created: {Character.Name}");
 
     }
     else if (choice == "3")
     {
-        // Remove Mario Character
+        // Remove Character Character
         Console.WriteLine("Enter the Id of the character to remove:");
         if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
         {
-            Mario? character = marios.FirstOrDefault(c => c.Id == Id);
+            Character? character = chars.FirstOrDefault(c => c.Id == Id);
             if (character == null)
             {
                 logger.Error($"Character Id {Id} not found");
             }
             else
             {
-                marios.Remove(character);
-                // serialize list<marioCharacter> into json file
-                File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+                chars.Remove(character);
+                // serialize list<CharacterCharacter> into json file
+                File.WriteAllText(filename, JsonSerializer.Serialize(chars));
                 logger.Info($"Character Id {Id} removed");
             }
         }
