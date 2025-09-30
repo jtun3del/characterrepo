@@ -1,3 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using NLog;
+using System.Text.Json;
+String path = Directory.GetCurrentDirectory() + "//nlog.config";
 
-Console.WriteLine("Hello, World!");
+
+//logger instance
+var logger = LogManager.Setup().LoadConfigurationFromFile(path).GetCurrentClassLogger();
+
+logger.Info("program started");
+
+//mario deserialization
+string marioFileName = "mario.json";
+List<Mario> marios = JsonSerializer.Deserialize<List<Mario>>(File.ReadAllText(marioFileName));
+
+
+logger.Info("program ended");
