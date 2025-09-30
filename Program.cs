@@ -60,6 +60,7 @@ do
         //add the char
         marios.Add(mario);
         File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+        logger.Info($"character created: {mario.Name}");
         
     }
     else if (choice == "3")
