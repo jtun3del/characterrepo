@@ -22,21 +22,29 @@ do
   // input selection
   string? choice = Console.ReadLine();
   logger.Info("User choice: {Choice}", choice);
-  if (choice == "1")
-  {
-    // Display Mario Characters
+    if (choice == "1")
+    {
+        // Display Mario Characters
+        foreach (var i in marios)
+        {
+            Console.WriteLine(i.Display());
+        }
   }
-  else if (choice == "2")
-  {
-    // Add Mario Character
-  }
-  else if (choice == "3")
-  {
-    // Remove Mario Character
-  } else if (string.IsNullOrEmpty(choice)) {
+    else if (choice == "2")
+    {
+        // Add Mario Character
+    }
+    else if (choice == "3")
+    {
+        // Remove Mario Character
+    }
+    else if (string.IsNullOrEmpty(choice))
+    {
         break;
-  } else {
-    logger.Info("Invalid choice");
-  }
+    }
+    else
+    {
+        logger.Info("Invalid choice");
+    }
 } while (true);
 logger.Info("program ended");
