@@ -46,11 +46,29 @@ do
         marios.Add(mario);
         File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
         logger.Info($"character created: {mario.Name}");
-        
+
     }
     else if (choice == "3")
     {
         // Remove Mario Character
+        Console.WriteLine("Enter the Id of the character to remove:");
+        if (UInt32.TryParse(Console.ReadLine(), out UInt32 Id))
+        {
+            Mario? character = marios.FirstOrDefault(c => c.Id == Id);
+      if (character == null)
+      {
+        logger.Error($"Character Id {Id} not found");
+      } else {
+         marios.Remove(character);
+        // serialize list<marioCharacter> into json file
+        File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
+        logger.Info($"Character Id {Id} removed");
+      }
+          }
+        else
+        {
+            logger.Error("Invalid Id");
+        }
     }
     else if (string.IsNullOrEmpty(choice))
     {
