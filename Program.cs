@@ -41,23 +41,7 @@ do
             Id = marios.Count == 0 ? 1 : marios.Max(c => c.Id) + 1
         };
 
-        Console.WriteLine("enter Name:");
-        mario.Name = Console.ReadLine();
-        Console.WriteLine("enter description");
-        mario.Description = Console.ReadLine();
-
-        List<string> list = [];
-        do
-        {
-            Console.WriteLine($"enter alias or (enter) to quit");
-            string response = Console.ReadLine()!;
-            if (string.IsNullOrEmpty(response))
-            {
-                break;
-            }
-            list.Add(response);
-        } while (true);
-        mario.Alias = list;
+        InputCharacter(mario);
         //add the char
         marios.Add(mario);
         File.WriteAllText(marioFileName, JsonSerializer.Serialize(marios));
